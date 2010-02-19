@@ -21,6 +21,7 @@ AC_INIT(PCRE, pcre_major.pcre_minor[]pcre_prerelease, , pcre)
 AC_CONFIG_SRCDIR([pcre.h.in])
 AM_INIT_AUTOMAKE([dist-bzip2 dist-zip])
 AC_CONFIG_HEADERS(config.h)
+AC_CONFIG_MACRO_DIR([m4])
 
 # The default CFLAGS and CXXFLAGS in Autoconf are "-g -O2" for gcc and just
 # "-g" for any other compiler. There doesn't seem to be a standard way of
