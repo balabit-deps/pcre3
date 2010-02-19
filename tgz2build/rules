@@ -1,0 +1,50 @@
+#!/usr/local/bin/make -f                                                                                                                                           
+STAMPDIR=tgz2build/stamps
+
+CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --enable-utf8 --enable-unicode-properties
+CONFIGURE_CMD = ./configure
+
+all: binary
+
+binary: clean setup configure build install
+
+setup:  $(STAMPDIR)/stamp-setup
+$(STAMPDIR)/stamp-setup:
+	mkdir -p tgz2build/stamps 
+	touch $@
+
+configure: $(STAMPDIR)/stamp-configure
+	unset CFLAGS; \
+	$(CONFIGURE_CMD) $(CONFIGURE_OPTS)
+	touch $@
+
+$(STAMPDIR)/stamp-configure: setup
+
+build:  $(STAMPDIR)/stamp-build
+$(STAMPDIR)/stamp-build: configure
+	$(MAKE)
+#	if echo $(ZBS_DIST) | grep '^aix' >/dev/null 2>&1;then \
+#		rm -f libz.so.1; \
+#		cp libz.so.1.2.3 libz.so.1; \
+#		/usr/bin/ar -q libz.a libz.so.1; \
+#		rm -f libz.so.1; \
+#		ln -s libz.so.1.2.3 libz.so.1; \
+#	fi
+
+	touch $@
+
+install: $(STAMPDIR)/stamp-install
+$(STAMPDIR)/stamp-install: build
+	rm -rf $(ZBS_STAGE_DIR) || true
+	$(MAKE) install prefix=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX) libdir=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/lib includedir=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/include
+#	if echo $(ZBS_DIST) | grep '^aix' >/dev/null 2>&1;then \
+#		install -m644 libz.a $(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/lib; \
+#	fi
+	touch $@
+
+clean:
+	rm -rf tgz2build/stamps || true
+	rm -rf tgz2build/staging || true
+	$(MAKE) clean
+
+.PHONY: build clean binary-indep binary-arch binary install
