@@ -45,6 +45,6 @@ $(STAMPDIR)/stamp-install: build
 clean:
 	rm -rf tgz2build/stamps || true
 	rm -rf tgz2build/staging || true
-	$(MAKE) clean
+	-$(MAKE) clean
 
 .PHONY: build clean binary-indep binary-arch binary install
