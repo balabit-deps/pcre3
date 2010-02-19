@@ -1,3 +1,14 @@
+pcre3 (7.8-4) syslogngdeps10; urgency=low
+
+  * Updated build system.
+  * tgz2build no longer barfs on older linux distributions because of gatomic
+    has unsupported asm inserts.
+  * Glib now uses libtool 2.x to create libs properly on any platform.
+  * Fixed AIX build process
+  * Fixes HPUX build process
+
+ -- Andras Tevesz <ghost@balabit.com>  Fri, 19 Feb 2010 16:59:44 +0100
+
 pcre3 (7.8-3) unstable; urgency=low
 
   * debian/rules: Install main library in /lib (Closes: 350468, #549608)
