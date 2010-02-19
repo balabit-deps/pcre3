@@ -562,16 +562,9 @@ variable-length repeat, or a anything other than literal characters. */
 /* Miscellaneous definitions. The #ifndef is to pacify compiler warnings in
 environments where these macros are defined elsewhere. */
 
-#ifdef _AIX
 typedef int BOOL;
-
-#define FALSE   0
-#define TRUE    1
-#endif
 
 #ifndef FALSE
-typedef int BOOL;
-
 #define FALSE   0
 #define TRUE    1
 #endif
