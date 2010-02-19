@@ -19,7 +19,7 @@ case "$cmd" in
   bootstrap)
     ;;
   configure)
-    ./configure  --enable-utf8 --enable-unicode-properties $@
+    ./configure  --enable-utf8 --enable-unicode-properties --disable-cpp $@
     ;;
   make)
     make $@
