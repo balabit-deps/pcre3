@@ -2,6 +2,7 @@
 STAMPDIR=tgz2build/stamps
 
 CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --enable-utf8 --enable-unicode-properties --disable-cpp
+LDFLAGS := -L.
 CONFIGURE_CMD = ./configure
 
 all: binary
@@ -15,7 +16,7 @@ $(STAMPDIR)/stamp-setup:
 
 configure: $(STAMPDIR)/stamp-configure
 	unset CFLAGS; \
-	$(CONFIGURE_CMD) $(CONFIGURE_OPTS)
+	LDFLAGS=$(LDFLAGS) $(CONFIGURE_CMD) $(CONFIGURE_OPTS)
 	touch $@
 
 $(STAMPDIR)/stamp-configure: setup
@@ -23,18 +24,12 @@ $(STAMPDIR)/stamp-configure: setup
 build:  $(STAMPDIR)/stamp-build
 $(STAMPDIR)/stamp-build: configure
 	$(MAKE)
-#	if echo $(ZBS_DIST) | grep '^aix' >/dev/null 2>&1;then \
-#	fi
-
 	touch $@
 
 install: $(STAMPDIR)/stamp-install
 $(STAMPDIR)/stamp-install: build
 	rm -rf $(ZBS_STAGE_DIR) || true
 	$(MAKE) install prefix=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX) libdir=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/lib includedir=$(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/include
-#	if echo $(ZBS_DIST) | grep '^aix' >/dev/null 2>&1;then \
-#		install -m644 libpcreposix.a $(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/lib; \
-#	fi
 	touch $@
 
 clean:
