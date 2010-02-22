@@ -35,7 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------
 */
 
-
+#define NOPOSIX
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

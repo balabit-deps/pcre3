@@ -46,7 +46,6 @@ dist_html_DATA = \
   doc/html/pcrepartial.html \
   doc/html/pcrepattern.html \
   doc/html/pcreperform.html \
-  doc/html/pcreposix.html \
   doc/html/pcreprecompile.html \
   doc/html/pcresample.html \
   doc/html/pcrestack.html \
@@ -120,8 +119,6 @@ MAINTAINERCLEANFILES += pcre.h.generic
 # it is generated from pcre.h.in.
 nodist_include_HEADERS = \
   pcre.h
-include_HEADERS = \
-  pcreposix.h
 
 # These additional headers will be be installed if C++ support is enabled. We
 # do not distribute pcrecpparg.h or pcre_stringpiece.h, as these are generated
@@ -130,7 +127,7 @@ if WITH_PCRE_CPP
 nodist_include_HEADERS += \
   pcrecpparg.h \
   pcre_stringpiece.h
-include_HEADERS += \
+include_HEADERS = \
   pcrecpp.h \
   pcre_scanner.h
 endif # WITH_PCRE_CPP
@@ -198,13 +195,6 @@ libpcre_la_LDFLAGS = $(EXTRA_LIBPCRE_LDFLAGS)
 
 CLEANFILES += pcre_chartables.c
 
-## A version of the main pcre library that has a posix re API.
-lib_LTLIBRARIES += libpcreposix.la
-libpcreposix_la_SOURCES = \
-  pcreposix.c
-libpcreposix_la_LDFLAGS = $(EXTRA_LIBPCREPOSIX_LDFLAGS)
-libpcreposix_la_LIBADD = libpcre.la
-
 ## There's a C++ library as well.
 if WITH_PCRE_CPP
 
@@ -244,13 +234,13 @@ dist_noinst_SCRIPTS += RunTest
 EXTRA_DIST += RunTest.bat
 bin_PROGRAMS += pcretest
 pcretest_SOURCES = pcretest.c
-pcretest_LDADD = libpcreposix.la libpcre.la
+pcretest_LDADD = libpcre.la
 
 TESTS += RunGrepTest
 dist_noinst_SCRIPTS += RunGrepTest
 bin_PROGRAMS += pcregrep
 pcregrep_SOURCES = pcregrep.c
-pcregrep_LDADD = libpcreposix.la libpcre.la
+pcregrep_LDADD = libpcre.la
 
 EXTRA_DIST += \
   testdata/grepinput \
@@ -365,7 +355,6 @@ dist_man_MANS = \
   doc/pcrepartial.3 \
   doc/pcrepattern.3 \
   doc/pcreperform.3 \
-  doc/pcreposix.3 \
   doc/pcreprecompile.3 \
   doc/pcresample.3 \
   doc/pcrestack.3 \
