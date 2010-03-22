@@ -15,7 +15,7 @@ $(STAMPDIR)/stamp-setup:
 	touch $@
 
 configure: $(STAMPDIR)/stamp-configure
-	unset CFLAGS; \
+	CFLAGS="$(CFLAGS)" \
 	LDFLAGS=$(LDFLAGS) $(CONFIGURE_CMD) $(CONFIGURE_OPTS)
 	touch $@
 
