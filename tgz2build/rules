@@ -2,7 +2,7 @@
 STAMPDIR=tgz2build/stamps
 
 CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --enable-utf8 --enable-unicode-properties --disable-cpp
-LDFLAGS := -L.
+LDFLAGS += -L.
 CONFIGURE_CMD = ./configure
 
 all: binary
@@ -15,8 +15,7 @@ $(STAMPDIR)/stamp-setup:
 	touch $@
 
 configure: $(STAMPDIR)/stamp-configure
-	unset CFLAGS; \
-	LDFLAGS=$(LDFLAGS) $(CONFIGURE_CMD) $(CONFIGURE_OPTS)
+	LDFLAGS="$(LDFLAGS)" $(CONFIGURE_CMD) $(CONFIGURE_OPTS)
 	touch $@
 
 $(STAMPDIR)/stamp-configure: setup
