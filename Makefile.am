@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in.
 
+ACLOCAL_AMFLAGS = -I m4
+
 dist_doc_DATA = \
   doc/pcre.txt \
   doc/pcre-config.txt \
@@ -40,6 +42,7 @@ dist_html_DATA = \
   doc/html/pcrebuild.html \
   doc/html/pcrecallout.html \
   doc/html/pcrecompat.html \
+  doc/html/pcredemo.html \
   doc/html/pcregrep.html \
   doc/html/pcrematching.html \
   doc/html/pcrepartial.html \
@@ -219,17 +222,17 @@ libpcrecpp_la_LIBADD = libpcre.la
 TESTS += pcrecpp_unittest
 noinst_PROGRAMS += pcrecpp_unittest
 pcrecpp_unittest_SOURCES = pcrecpp_unittest.cc
-pcrecpp_unittest_LDADD = libpcrecpp.la libpcre.la
+pcrecpp_unittest_LDADD = libpcrecpp.la
 
 TESTS += pcre_scanner_unittest
 noinst_PROGRAMS += pcre_scanner_unittest
 pcre_scanner_unittest_SOURCES = pcre_scanner_unittest.cc
-pcre_scanner_unittest_LDADD = libpcrecpp.la libpcre.la
+pcre_scanner_unittest_LDADD = libpcrecpp.la
 
 TESTS += pcre_stringpiece_unittest
 noinst_PROGRAMS += pcre_stringpiece_unittest
 pcre_stringpiece_unittest_SOURCES = pcre_stringpiece_unittest.cc
-pcre_stringpiece_unittest_LDADD = libpcrecpp.la libpcre.la
+pcre_stringpiece_unittest_LDADD = libpcrecpp.la
 
 endif # WITH_PCRE_CPP
 
@@ -243,16 +246,17 @@ dist_noinst_SCRIPTS += RunTest
 EXTRA_DIST += RunTest.bat
 bin_PROGRAMS += pcretest
 pcretest_SOURCES = pcretest.c
-pcretest_LDADD = libpcreposix.la libpcre.la
+pcretest_LDADD = libpcreposix.la $(LIBREADLINE)
 
 TESTS += RunGrepTest
 dist_noinst_SCRIPTS += RunGrepTest
 bin_PROGRAMS += pcregrep
 pcregrep_SOURCES = pcregrep.c
-pcregrep_LDADD = libpcreposix.la libpcre.la
+pcregrep_LDADD = libpcreposix.la $(LIBZ) $(LIBBZ2)
 
 EXTRA_DIST += \
   testdata/grepinput \
+  testdata/grepinput3 \
   testdata/grepinput8 \
   testdata/grepinputv \
   testdata/grepinputx \
@@ -270,6 +274,8 @@ EXTRA_DIST += \
   testdata/testinput8 \
   testdata/testinput9 \
   testdata/testinput10 \
+  testdata/testinput11 \
+  testdata/testinput12 \
   testdata/testoutput1 \
   testdata/testoutput2 \
   testdata/testoutput3 \
@@ -280,6 +286,8 @@ EXTRA_DIST += \
   testdata/testoutput8 \
   testdata/testoutput9 \
   testdata/testoutput10 \
+  testdata/testoutput11 \
+  testdata/testoutput12 \
   testdata/wintestinput3 \
   testdata/wintestoutput3 \
   perltest.pl
@@ -327,7 +335,7 @@ pcre.dll: $(DLL_OBJS)
 
 # We have .pc files for pkg-config users.
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libpcre.pc
+pkgconfig_DATA = libpcre.pc libpcreposix.pc
 if WITH_PCRE_CPP
 pkgconfig_DATA += libpcrecpp.pc
 endif

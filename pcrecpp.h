@@ -646,14 +646,18 @@ class PCRECPP_EXP_DEFN RE {
   // regexp wasn't valid on construction.
   int NumberOfCapturingGroups() const;
 
-  // The default value for an argument, to indicate no arg was passed in
+  // The default value for an argument, to indicate the end of the argument
+  // list. This must be used only in optional argument defaults. It should NOT
+  // be passed explicitly. Some people have tried to use it like this:
+  //
+  //   FullMatch(x, y, &z, no_arg, &w);
+  //
+  // This is a mistake, and will not work.
   static Arg no_arg;
 
  private:
 
   void Init(const string& pattern, const RE_Options* options);
-  // Old version from PCRE 6.x, for compatibility
-  void Init(const char *pattern, const RE_Options* options);
   void Cleanup();
 
   // Match against "text", filling in "vec" (up to "vecsize" * 2/3) with
@@ -670,6 +674,7 @@ class PCRECPP_EXP_DEFN RE {
   int TryMatch(const StringPiece& text,
                int startpos,
                Anchor anchor,
+               bool empty_ok,
                int *vec,
                int vecsize) const;
 
