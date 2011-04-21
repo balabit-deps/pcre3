@@ -5,6 +5,14 @@ CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --enable-utf8 --enable-unicode-properti
 LDFLAGS += -L. -L./.libs
 CONFIGURE_CMD = ./configure
 
+ifneq (,$(findstring solaris,$(ZBS_DIST)))
+# Under solaris we need this switch to be able to use iconv.
+  ifneq (,$(findstring amd64,$(ZBS_ARCH)))
+		CONFIGURE_OPTS +=
+  endif
+  LDFLAGS += -Wl,-R/opt/syslog-ng/lib
+endif
+
 all: binary
 
 binary: clean setup configure build install
