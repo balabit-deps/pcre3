@@ -3,7 +3,7 @@ STAMPDIR=tgz2build/stamps
 
 CONFIGURE_OPTS := --prefix $(ZBS_PREFIX) --enable-utf8 --enable-unicode-properties --disable-cpp
 LDFLAGS += -L. -L./.libs
-CONFIGURE_CMD = ./configure
+CONFIGURE_CMD = $(SHELL) ./configure
 
 ifneq (,$(findstring solaris,$(ZBS_DIST)))
 # Under solaris we need this switch to be able to use iconv.
