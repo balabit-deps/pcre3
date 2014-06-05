@@ -1,3 +1,9 @@
+pcre3 (8.12-1.syslogng52.1) syslogng52; urgency=low
+
+  * released for syslog-ng-5.2
+
+ -- jviktor <jviktor@devel-57>  Thu, 05 Jun 2014 13:43:39 +0200
+
 pcre3 (8.12-1.syslogng51.1) syslogngdeps51; urgency=low
 
   * released for syslog-ng-5.1
