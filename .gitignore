@@ -13,8 +13,9 @@ aclocal.m4
 ltmain.sh
 autom4te.cache
 gtk-doc.make
-smake/*.pyc
-b
 m4
 .*.swp
 test-driver
+*.pyc
+sbuild.py
+sbuild/build
