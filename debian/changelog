@@ -1,3 +1,9 @@
+pcre3 (8.32-1.syslogng60.1) syslogng60; urgency=low
+
+  * release pcre3 8.32
+
+ -- kokan <peter.kokai@quest.com>  Mon, 14 Oct 2019 16:00:51 +0100
+
 pcre3 (8.32-1.syslogng70.1) syslogng70; urgency=medium
 
   * release pcre3 8.32
