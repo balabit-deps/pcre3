@@ -1,0 +1,20 @@
+source="pcre3"
+version=8.32-pe-1
+
+bootstrap() {
+  ./autogen.sh
+}
+
+build() {
+  cd "${build_dir}"
+  ${src_dir}/configure --prefix="${prefix}" --enable-utf8 --enable-unicode-properties --disable-cpp
+  make
+}
+
+check() {
+  make -C "${build_dir}" check
+}
+
+install() {
+  make -C "${build_dir}" DESTDIR="${dest_dir}" install
+}
