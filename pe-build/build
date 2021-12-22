@@ -12,7 +12,8 @@ build() {
 }
 
 check() {
-  make -C "${build_dir}" check
+  # PCRE unit tests can not be executed in parallel.
+  make -C "${build_dir}" -j1 check
 }
 
 install() {
