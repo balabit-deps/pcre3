@@ -2,8 +2,3 @@ name: pcre3
 builder:
   name: AutotoolsBuilder
   configure_options: "--enable-utf8 --enable-unicode-properties --disable-cpp"
-platforms:
-  - aix-6.1/powerpc
-  - windows-2012/amd64
-  - windows-2012/i386
-  - linux-glibc2.11/amd64
